@@ -3,128 +3,150 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UniScript : MonoBehaviour {
+public class UniScript : MonoBehaviour
+{
+	//input variables
+	[SerializeField]
+	private Text whiteboardText;
+	[SerializeField]
+	private Text laptopText;
+	private List<string> words = new List<string>();
+	[SerializeField]
+	private TextAsset wordsAsset;
+	private string[] possibleColours = new string[4] { "red", "blue", "green", "yellow" };
+	private KeyCode[] keyInputs = new KeyCode[4] { KeyCode.LeftArrow, KeyCode.UpArrow, KeyCode.DownArrow, KeyCode.RightArrow };
+	[SerializeField]
+	private AudioClip correctSound;
+	[SerializeField]
+	private AudioClip incorrectSound;
+	[SerializeField]
+	private AudioSource audioPlayer;
 
-    //input variables
-    [SerializeField]
-    private Text whiteboardText;
-    [SerializeField]
-    private Text laptopText;
-    private List<string> words = new List<string>();
-    [SerializeField]
-    private TextAsset wordsAsset;
-    private string[] possibleColours = new string[4] { "red", "blue", "green", "yellow" };
-    private KeyCode[] keyInputs = new KeyCode[4] { KeyCode.LeftArrow, KeyCode.UpArrow, KeyCode.DownArrow, KeyCode.RightArrow };
-    [SerializeField]
-    private AudioClip correctSound;
-    [SerializeField]
-    private AudioClip incorrectSound;
-    [SerializeField]
-    private AudioClip endGameSound;
-    [SerializeField]
-    private AudioSource audioPlayer;
+	//tracking variables
+	private int wordCounter = 1;
+	private int letterCounter = 1;
+	[SerializeField]
+	private int FinalWord = 10;
+	int currentWordIndex;
+	List<int> letterColours = new List<int>();//0 is left, 1 is up, 2 is down, 3 is right
+	string currentWhiteboardWord;
+	private bool m_hasStarted = false;
 
-    //tracking variables
-    private int wordCounter = 1;
-    private int letterCounter = 1;
-    [SerializeField]
-    private int FinalWord = 10;
-    int currentWordIndex;
-    List<int> letterColours = new List<int>();//0 is left, 1 is up, 2 is down, 3 is right
-    string currentWhiteboardWord;
-
-	// Use this for initialization
-	void Start () {
-
-        words = new List<string>(wordsAsset.text.Split('\n'));
-
-        //clear laptop screen
-        laptopText.text = "";
-
-        //assign the first word
-        SetNextWord();
+	private void Awake()
+	{
+		GameManager.OnGameStart += StartGame;
 	}
 
-    //when user types, update text
-    private void Update() {
-        
-        if (CheckInput(0) || CheckInput(1) || CheckInput(2) || CheckInput(3)) {
-            laptopText.text += words[currentWordIndex][(letterCounter - 1)];
-            letterCounter++;
+	// Use this for initialization
+	void Start()
+	{
+		words = new List<string>(wordsAsset.text.Split('\n'));
 
-            if (letterCounter >= words[currentWordIndex].Length) {
-                wordCounter++;
-                StartCoroutine(WaitNextWord());
+		//clear laptop screen
+		laptopText.text = "";
 
-                audioPlayer.clip = correctSound;
-                audioPlayer.Play();
+		//assign the first word
+		SetNextWord();
+	}
 
-                if (wordCounter >= FinalWord) {
-                    EndGame();
-                }
-            }
+	//when user types, update text
+	private void Update()
+	{
+		if (m_hasStarted == false)
+		{
+			return;
+		}
 
-        } else if (Input.anyKeyDown) {
+		if (CheckInput(0) || CheckInput(1) || CheckInput(2) || CheckInput(3))
+		{
+			laptopText.text += words[currentWordIndex][(letterCounter - 1)];
+			letterCounter++;
 
-            //reset laptop text and counter
-            laptopText.text = "";
-            letterCounter = 1;
+			if (letterCounter >= words[currentWordIndex].Length)
+			{
+				wordCounter++;
+				StartCoroutine(WaitNextWord());
 
-            audioPlayer.clip = incorrectSound;
-            audioPlayer.Play();
-        }
-    }
+				audioPlayer.clip = correctSound;
+				audioPlayer.Play();
 
-    //sets the next whiteboard word
-    void SetNextWord() {
+				if (wordCounter >= FinalWord)
+				{
+					EndGame();
+				}
+			}
 
-        //reset text
-        laptopText.text = "";
-        letterCounter = 1;
+		}
+		else if (Input.anyKeyDown)
+		{
 
-        //select the next word
-        currentWordIndex = Random.Range(0 + ((words.Count / FinalWord) *  (wordCounter - 1)), (words.Count / FinalWord) * wordCounter);
+			//reset laptop text and counter
+			laptopText.text = "";
+			letterCounter = 1;
 
-        //setup word colours
-        letterColours = new List<int>();
-        currentWhiteboardWord = "";
-        int thisColour;
+			audioPlayer.clip = incorrectSound;
+			audioPlayer.Play();
+		}
+	}
 
-        for (int i = 0; i < words[currentWordIndex].Length; i++) {
+	public void StartGame()
+	{
+		m_hasStarted = true;
 
-            thisColour = Random.Range(0, possibleColours.Length);
+		GameManager.OnGameStart -= StartGame;
+	}
 
-            letterColours.Add(thisColour);
-            currentWhiteboardWord += ("<Color=" + possibleColours[thisColour] + ">" + words[currentWordIndex][i] + "</Color> ");
-        }
+	//sets the next whiteboard word
+	void SetNextWord()
+	{
 
-        whiteboardText.text = currentWhiteboardWord;
-    }
+		//reset text
+		laptopText.text = "";
+		letterCounter = 1;
 
-    //check the given input
-    private bool CheckInput(int direction) {
+		//select the next word
+		currentWordIndex = Random.Range(0 + ((words.Count / FinalWord) * (wordCounter - 1)), (words.Count / FinalWord) * wordCounter);
 
-        if (Input.GetKeyDown(keyInputs[direction]) && letterColours[(letterCounter - 1)] == direction) {
-            return true;
-        }
-        return false;
-    }
+		//setup word colours
+		letterColours = new List<int>();
+		currentWhiteboardWord = "";
+		int thisColour;
 
-    //ends this minigame
-    private void EndGame() {
+		for (int i = 0; i < words[currentWordIndex].Length; i++)
+		{
 
-        audioPlayer.clip = endGameSound;
+			thisColour = Random.Range(0, possibleColours.Length);
 
-        audioPlayer.Play();
+			letterColours.Add(thisColour);
+			currentWhiteboardWord += ("<Color=" + possibleColours[thisColour] + ">" + words[currentWordIndex][i] + "</Color> ");
+		}
 
-        StartCoroutine(GameManager.Instance.FadeOut());
-    }
+		whiteboardText.text = currentWhiteboardWord;
+	}
 
-    //wait before moving to next word
-    IEnumerator WaitNextWord() {
+	//check the given input
+	private bool CheckInput(int direction)
+	{
 
-        yield return new WaitForSeconds(0.1f);
+		if (Input.GetKeyDown(keyInputs[direction]) && letterColours[(letterCounter - 1)] == direction)
+		{
+			return true;
+		}
+		return false;
+	}
 
-        SetNextWord();
-    }
+	//ends this minigame
+	private void EndGame()
+	{
+		StartCoroutine(GameManager.Instance.FadeOut());
+	}
+
+	//wait before moving to next word
+	IEnumerator WaitNextWord()
+	{
+
+		yield return new WaitForSeconds(0.1f);
+
+		SetNextWord();
+	}
 }

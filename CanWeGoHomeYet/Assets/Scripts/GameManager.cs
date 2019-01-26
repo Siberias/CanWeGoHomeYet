@@ -1,146 +1,180 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class GameManager : MonoBehaviour {
+public class GameManager : MonoBehaviour
+{
+	public delegate void OnGameStartDelegate();
+	public static event OnGameStartDelegate OnGameStart;
 
-    public string nextScene;
+	public string nextScene;
+	public AudioClip endGameSound;
 
-    //clock variables
-    [SerializeField]
-    private GameObject clockPanel1, clockPanel2;
-    [SerializeField]
-    private Text clock;
-    private int minFontSize = 36;
-    private int maxFontSize = 200;
-    private int totalMinutes;
-    private float minuteTimer;
-    private float minuteTime = 1;
+	//clock variables
+	[SerializeField]
+	private GameObject clockPanel1, clockPanel2;
+	[SerializeField]
+	private Text clock;
+	private int minFontSize = 36;
+	private int maxFontSize = 200;
+	private int totalMinutes;
+	private float minuteTimer;
+	private float minuteTime = 1;
+	private bool m_isClockStarted = false;
 
-    //fading in variables
-    [SerializeField]
-    private CanvasGroup fader;
-    private int framesToLoad = 100;
-    [SerializeField]
-    private Text countdownText;
-    [SerializeField]
-    private GameObject countDownPanel;
+	//fading in variables
+	[SerializeField]
+	private CanvasGroup fader;
+	private int framesToLoad = 100;
+	[SerializeField]
+	private Text countdownText;
+	[SerializeField]
+	private GameObject countDownPanel;
 
-    public static GameManager Instance;
+	[SerializeField]
+	private GameObject transitionCanvas;
 
+	private AudioSource m_audioPlayer;
+
+	public static GameManager Instance { get; private set; }
 
 	// Use this for initialization
-	void Start () {
+	void Start()
+	{
+		Instance = this;
 
-		if (!Instance) {
-            Instance = this;
-        } else {
-            Destroy(this);
-        }
+		transitionCanvas.SetActive(true);
 
-        StartCoroutine(FadeIn());
+		StartCoroutine(FadeIn());
 
-        //set up clock variables
-        totalMinutes = 9 * 60;
-        minuteTimer = 0;
+		//set up clock variables
+		totalMinutes = 9 * 60;
+		minuteTimer = 0;
+		m_isClockStarted = false;
 	}
-	
+
 	// Update is called once per frame
-	void Update () {
-		if (minuteTimer <= Time.time) {
+	void Update()
+	{
+		if (minuteTimer <= Time.time && m_isClockStarted)
+		{
 
-            totalMinutes++;
-            minuteTimer = Time.time + minuteTime;
+			totalMinutes++;
+			minuteTimer = Time.time + minuteTime;
 
-            clock.text = ConvertMinutes();
-        }
+			clock.text = ConvertMinutes();
+		}
 	}
 
-    //change to the next scene
-    public void ChangeScene() {
-        SceneManager.LoadScene(nextScene);
-    }
+	//change to the next scene
+	public void ChangeScene()
+	{
+		SceneManager.LoadScene(nextScene);
+	}
 
-    //convert minutes to digital time as string
-    private string ConvertMinutes() {
+	//convert minutes to digital time as string
+	private string ConvertMinutes()
+	{
 
-        //calculate time in hours and minutes
-        int hours = totalMinutes / 60;
-        int minutes = totalMinutes % 60;
-        string returnTime;
-               
-        if (hours < 10) {
-            returnTime = "0" + hours + ":";
-        } else {
-            returnTime = hours + ":";
-        }
+		//calculate time in hours and minutes
+		int hours = totalMinutes / 60;
+		int minutes = totalMinutes % 60;
+		string returnTime;
 
-        if (minutes < 10) {
-            returnTime += "0" + minutes;
-        } else {
-            returnTime += minutes;
-        }
+		if (hours < 10)
+		{
+			returnTime = "0" + hours + ":";
+		}
+		else
+		{
+			returnTime = hours + ":";
+		}
 
-        return returnTime;
-    }
+		if (minutes < 10)
+		{
+			returnTime += "0" + minutes;
+		}
+		else
+		{
+			returnTime += minutes;
+		}
 
-    //fade into the game
-    IEnumerator FadeIn() {
+		return returnTime;
+	}
 
-        //set the clock to be large and in the centre of the screen
-        clock.fontSize = (int)maxFontSize;
-        Vector3 initialPos = clock.transform.parent.transform.parent.TransformPoint(new Vector3(0, Screen.height / 4, 0));
-        clock.transform.position = initialPos;
+	//fade into the game
+	IEnumerator FadeIn()
+	{
 
-        for (float i = 1; i > 0; i -= (1f/framesToLoad)) {
-            fader.alpha = i;
+		//set the clock to be large and in the centre of the screen
+		clock.fontSize = (int)maxFontSize;
+		Vector3 initialPos = clock.transform.parent.transform.parent.TransformPoint(new Vector3(0, Screen.height / 4, 0));
+		clock.transform.position = initialPos;
 
-            clock.fontSize = (int)Mathf.Lerp(maxFontSize, minFontSize, 1 - i);
-            clock.transform.position = Vector3.Lerp(initialPos, clockPanel1.transform.position, 1 - i);
+		for (float i = 1; i > 0; i -= (1f / framesToLoad))
+		{
+			fader.alpha = i;
 
-            yield return new WaitForEndOfFrame();
-        }
+			clock.fontSize = (int)Mathf.Lerp(maxFontSize, minFontSize, 1 - i);
+			clock.transform.position = Vector3.Lerp(initialPos, clockPanel1.transform.position, 1 - i);
 
-        //make clock background visible
-        clockPanel1.SetActive(true);
-        clockPanel2.SetActive(true);
+			yield return new WaitForEndOfFrame();
+		}
 
-        //countdown
-        for (int i = 3; i >= 0; i--) {
+		//make clock background visible
+		clockPanel1.SetActive(true);
+		clockPanel2.SetActive(true);
 
-            if ( i != 0) {
-                countdownText.text = i.ToString();
-            } else {
-                countdownText.text = "GO!";
-            }
+		//countdown
+		for (int i = 3; i >= 0; i--)
+		{
 
-            yield return new WaitForSeconds(0.75f);
+			if (i != 0)
+			{
+				countdownText.text = i.ToString();
+			}
+			else
+			{
+				countdownText.text = "GO!";
+			}
 
-        }
+			yield return new WaitForSeconds(0.75f);
 
-        countDownPanel.SetActive(false);
-        countdownText.text = "";
-    }
+		}
 
-    //fade into the game
-    public IEnumerator FadeOut() {
+		m_isClockStarted = true;
 
-        //set the clock to be large and in the centre of the screen
-        Vector3 endPos = clock.transform.parent.transform.parent.TransformPoint(new Vector3(0, Screen.height / 4, 0));
+		countDownPanel.SetActive(false);
+		countdownText.text = "";
 
-        //make clock background invisible
-        clockPanel1.SetActive(false);
-        clockPanel2.SetActive(false);
+		OnGameStart?.Invoke();
+	}
 
-        for (float i = 0; i < 1; i += (1f / framesToLoad)) {
-            fader.alpha = i;
+	//fade into the game
+	public IEnumerator FadeOut()
+	{
+		//The mini game has been won! Let's celebrate
+		m_audioPlayer.clip = endGameSound;
+		m_audioPlayer.Play();
 
-            clock.fontSize = (int)Mathf.Lerp(minFontSize, maxFontSize, i);
-            clock.transform.position = Vector3.Lerp(clockPanel1.transform.position, endPos, i);
+		//set the clock to be large and in the centre of the screen
+		Vector3 endPos = clock.transform.parent.transform.parent.TransformPoint(new Vector3(0, Screen.height / 4, 0));
 
-            yield return new WaitForEndOfFrame();
-        }
-    }
+		//make clock background invisible
+		clockPanel1.SetActive(false);
+		clockPanel2.SetActive(false);
+
+		for (float i = 0; i < 1; i += (1f / framesToLoad))
+		{
+			fader.alpha = i;
+
+			clock.fontSize = (int)Mathf.Lerp(minFontSize, maxFontSize, i);
+			clock.transform.position = Vector3.Lerp(clockPanel1.transform.position, endPos, i);
+
+			yield return new WaitForEndOfFrame();
+		}
+
+		ChangeScene();
+	}
 }

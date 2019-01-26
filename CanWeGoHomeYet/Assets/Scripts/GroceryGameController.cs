@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(AudioSource))]
 public class GroceryGameController : MonoBehaviour
 {
 	public float m_timeToChoose = 5.0f;
@@ -22,11 +23,8 @@ public class GroceryGameController : MonoBehaviour
 	private void Awake()
 	{
 		Instance = this;
-	}
 
-	private void Start()
-	{
-		CountdownToGameStart();
+		GameManager.OnGameStart += CountdownToGameStart;
 	}
 
 	private void Update()
@@ -54,6 +52,8 @@ public class GroceryGameController : MonoBehaviour
 
 	public void CountdownToGameStart()
 	{
+		GameManager.OnGameStart -= CountdownToGameStart;
+
 		//TODO: Wait for countdown animation
 		StartGame();
 	}
@@ -154,5 +154,7 @@ public class GroceryGameController : MonoBehaviour
 	public void FinishGame()
 	{
 		m_youWinFeedback.SetActive(true);
+
+		StartCoroutine(GameManager.Instance.FadeOut());
 	}
 }
