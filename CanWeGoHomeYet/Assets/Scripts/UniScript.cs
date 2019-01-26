@@ -20,6 +20,8 @@ public class UniScript : MonoBehaviour {
     [SerializeField]
     private AudioClip incorrectSound;
     [SerializeField]
+    private AudioClip endGameSound;
+    [SerializeField]
     private AudioSource audioPlayer;
 
     //tracking variables
@@ -56,6 +58,10 @@ public class UniScript : MonoBehaviour {
 
                 audioPlayer.clip = correctSound;
                 audioPlayer.Play();
+
+                if (wordCounter >= FinalWord) {
+                    endGameSound();
+                }
             }
 
         } else if (Input.anyKeyDown) {
@@ -102,6 +108,14 @@ public class UniScript : MonoBehaviour {
             return true;
         }
         return false;
+    }
+
+    //ends this minigame
+    private void EndGame() {
+
+        audioPlayer.clip = endGameSound;
+
+        audioPlayer.Play();
     }
 
     //wait before moving to next word
