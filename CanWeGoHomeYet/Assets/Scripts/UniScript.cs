@@ -20,7 +20,7 @@ public class UniScript : MonoBehaviour {
     [SerializeField]
     private AudioClip incorrectSound;
     [SerializeField]
-    private AudioClip endLevelSound;
+    private AudioClip endGameSound;
     [SerializeField]
     private AudioSource audioPlayer;
 
@@ -59,8 +59,8 @@ public class UniScript : MonoBehaviour {
                 audioPlayer.clip = correctSound;
                 audioPlayer.Play();
 
-                if (wordCounter > FinalWord) {
-                    EndGame();
+                if (wordCounter >= FinalWord) {
+                    endGameSound();
                 }
             }
 
@@ -113,9 +113,7 @@ public class UniScript : MonoBehaviour {
     //ends this minigame
     private void EndGame() {
 
-        Debug.Log('a');
-
-        audioPlayer.clip = endLevelSound;
+        audioPlayer.clip = endGameSound;
 
         audioPlayer.Play();
     }
