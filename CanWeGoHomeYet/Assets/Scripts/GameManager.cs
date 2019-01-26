@@ -46,4 +46,17 @@ public class GameManager : MonoBehaviour {
             yield return new WaitForEndOfFrame();
         }
     }
+
+    //fade into the game
+    IEnumerator FadeOut() {
+
+        for (float i = 0; i < 1; i += (1f / 30f)) {
+            fader.alpha = i;
+
+
+            yield return new WaitForEndOfFrame();
+        }
+
+
+    }
 }

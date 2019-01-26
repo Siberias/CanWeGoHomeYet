@@ -60,7 +60,7 @@ public class UniScript : MonoBehaviour {
                 audioPlayer.Play();
 
                 if (wordCounter >= FinalWord) {
-                    endGameSound();
+                    EndGame();
                 }
             }
 
