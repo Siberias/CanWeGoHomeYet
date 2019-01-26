@@ -6,19 +6,19 @@ public class walking : MonoBehaviour {
 
     public GameObject player;
     private int lane;
-    public bool walking;
+    public bool isWalking;
 
 	// Use this for initialization
 	void Start () {
         //Set lane to 1 (middle)
         lane = 1;
 
-        walking = true;
+        isWalking = true;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        if (walking == true) {
+        if (isWalking == true) {
             //Move Forward
             player.transform.Translate(new Vector3(0, 0, 10) * Time.deltaTime);
         }
@@ -45,6 +45,6 @@ public class walking : MonoBehaviour {
 
     //walk into enemy
     private void OnTriggerEnter(Collider other) {
-        walking = false;
+        isWalking = false;
     }
 }
