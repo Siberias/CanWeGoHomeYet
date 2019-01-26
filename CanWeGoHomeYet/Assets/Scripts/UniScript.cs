@@ -113,6 +113,8 @@ public class UniScript : MonoBehaviour {
     //ends this minigame
     private void EndGame() {
 
+        Debug.Log('a');
+
         audioPlayer.clip = endLevelSound;
 
         audioPlayer.Play();
