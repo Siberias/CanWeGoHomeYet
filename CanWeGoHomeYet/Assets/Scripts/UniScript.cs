@@ -116,6 +116,8 @@ public class UniScript : MonoBehaviour {
         audioPlayer.clip = endGameSound;
 
         audioPlayer.Play();
+
+        StartCoroutine(GameManager.Instance.FadeOut());
     }
 
     //wait before moving to next word
