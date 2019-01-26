@@ -87,6 +87,13 @@ public class GroceryGameController : MonoBehaviour
 		int secondChoice = Random.Range(0, GroceryItemList.Instance.m_items.Count);
 		GroceryItem item2 = GroceryItemList.Instance.m_items[secondChoice];
 
+		//If both items are the same, roll again!
+		while (item1.m_id.Equals(item2.m_id))
+		{
+			secondChoice = Random.Range(0, GroceryItemList.Instance.m_items.Count);
+			item2 = GroceryItemList.Instance.m_items[secondChoice];
+		}
+
 		//Randomly choose whether the required item is on the left of right
 		if (Random.value > 0.5f)
 		{
