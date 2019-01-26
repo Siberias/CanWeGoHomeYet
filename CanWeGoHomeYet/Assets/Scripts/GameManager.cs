@@ -39,6 +39,11 @@ public class GameManager : MonoBehaviour
 
 	public static GameManager Instance { get; private set; }
 
+	private void Awake()
+	{
+		m_audioPlayer = GetComponent<AudioSource>();
+	}
+
 	// Use this for initialization
 	void Start()
 	{
