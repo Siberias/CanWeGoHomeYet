@@ -12,7 +12,7 @@ public class enemy : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         numEnemies = 10;
-        //enem
+        enemyDis = 160 / numEnemies;
         SetEnemies();
 	}
 	
@@ -25,17 +25,10 @@ public class enemy : MonoBehaviour {
         int addZ = 10;
         for (int i = 0; i < numEnemies; i++) {
             int ranX = (Random.Range(-1, 2) * 3);
-            addZ += 10;
+            addZ += enemyDis;
             Instantiate(characters[Random.Range(0, characters.Length)], new Vector3(ranX, 1, addZ), Quaternion.identity);
             //Instantiate(characters[Random.Range(0, characters.Length)], GeneratedPos(), Quaternion.identity);
         }
     }
 
-    Vector3 GeneratedPos() {
-        int x = (Random.Range(-1, 2) * 3);
-        int y = 1;
-        int z =+ 10; //Random.Range(10, 70);
-        print(x + "  -  " + y + "  -  " + z);
-        return new Vector3(x, y, z);
-    }
 }
