@@ -17,3 +17,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/GroceryShopping.unity
     guid: 02b3864a6125faa45a4aff8bcf5ca157
+  - enabled: 1
+    path: Assets/Scenes/Menu.unity
+    guid: 384d19664eb03e54baad565e6a632ddb

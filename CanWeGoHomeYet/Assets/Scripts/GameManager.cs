@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
 
 	public string nextScene;
 	public AudioClip endGameSound;
+	public float m_clockZoomScaleFactor = 1.0f;
 
 	//clock variables
 	[SerializeField]
@@ -21,7 +22,6 @@ public class GameManager : MonoBehaviour
 	private int totalMinutes;
 	private float minuteTimer;
 	private float minuteTime = 1;
-	private bool m_isClockStarted = false;
 
 	//fading in variables
 	[SerializeField]
@@ -39,6 +39,11 @@ public class GameManager : MonoBehaviour
 
 	public static GameManager Instance { get; private set; }
 
+	private void Awake()
+	{
+		m_audioPlayer = GetComponent<AudioSource>();
+	}
+
 	// Use this for initialization
 	void Start()
 	{
@@ -50,16 +55,14 @@ public class GameManager : MonoBehaviour
 
 		//set up clock variables
 		totalMinutes = 9 * 60;
-		minuteTimer = 0;
-		m_isClockStarted = false;
+		minuteTimer = PlayerPrefs.GetInt("Timer", 0);
 	}
 
 	// Update is called once per frame
 	void Update()
 	{
-		if (minuteTimer <= Time.time && m_isClockStarted)
+		if (minuteTimer <= Time.time)
 		{
-
 			totalMinutes++;
 			minuteTimer = Time.time + minuteTime;
 
@@ -143,8 +146,6 @@ public class GameManager : MonoBehaviour
 
 		}
 
-		m_isClockStarted = true;
-
 		countDownPanel.SetActive(false);
 		countdownText.text = "";
 
@@ -159,7 +160,7 @@ public class GameManager : MonoBehaviour
 		m_audioPlayer.Play();
 
 		//set the clock to be large and in the centre of the screen
-		Vector3 endPos = clock.transform.parent.transform.parent.TransformPoint(new Vector3(0, Screen.height / 4, 0));
+		Vector3 endPos = clock.transform.parent.transform.parent.TransformPoint(new Vector3(0, Screen.height / (4.0f * m_clockZoomScaleFactor), 0));
 
 		//make clock background invisible
 		clockPanel1.SetActive(false);
@@ -174,6 +175,8 @@ public class GameManager : MonoBehaviour
 
 			yield return new WaitForEndOfFrame();
 		}
+
+		PlayerPrefs.SetInt("Timer", totalMinutes);
 
 		ChangeScene();
 	}
