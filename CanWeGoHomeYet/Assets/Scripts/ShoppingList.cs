@@ -11,6 +11,9 @@ public class ShoppingList : MonoBehaviour
 	private Dictionary<string, bool> m_collectedItems = new Dictionary<string, bool>();
 	private Animator m_animator;
 
+	public float m_timeBeforeHide = 5.0f;
+	private float m_showTimer;
+
 	private void Awake()
 	{
 		Instance = this;
@@ -21,6 +24,19 @@ public class ShoppingList : MonoBehaviour
 	private void Start()
 	{
 		CreateList();
+	}
+
+	private void Update()
+	{
+		if (m_showTimer > 0.0f)
+		{
+			m_showTimer -= Time.deltaTime;
+
+			if (m_showTimer <= 0.0f)
+			{
+				m_animator.SetTrigger("Hide");
+			}
+		}
 	}
 
 	public void ShowList()
@@ -85,5 +101,10 @@ public class ShoppingList : MonoBehaviour
 	public void ShoppingListHidden()
 	{
 		GroceryGameController.Instance.StartNextChoice();
+	}
+
+	public void ShoppingListAppeared()
+	{
+		m_showTimer = m_timeBeforeHide;
 	}
 }
