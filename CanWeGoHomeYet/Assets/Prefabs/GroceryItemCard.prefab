@@ -39,7 +39,8 @@ GameObject:
   - component: {fileID: 222737413867314576}
   - component: {fileID: 114013480202374278}
   - component: {fileID: 95460488761064186}
-  - component: {fileID: 114900247928336740}
+  - component: {fileID: 114441717274264140}
+  - component: {fileID: 114749406266003132}
   m_Layer: 5
   m_Name: GroceryItemCard
   m_TagString: Untagged
@@ -76,7 +77,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.97160244, g: 0.7941176, b: 1, a: 1}
+  m_Color: {r: 0.972549, g: 0.7921569, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -91,6 +92,23 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114441717274264140
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1139472324857772}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0406dbf5907d954c81d02d48e9b965a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_image: {fileID: 114491466931256078}
+  m_button: {fileID: 114749406266003132}
+  m_collectTrigger: Collect1
+  m_errorTrigger: Shake1
+  m_appearTrigger: Appear
+  m_hideTrigger: Hide
 --- !u!114 &114491466931256078
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -118,7 +136,7 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!114 &114900247928336740
+--- !u!114 &114749406266003132
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -126,10 +144,50 @@ MonoBehaviour:
   m_GameObject: {fileID: 1139472324857772}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 33de5c9fa4d22ab418b16a477ab076bf, type: 3}
+  m_Script: {fileID: 1392445389, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_triggerName: Appear
+  m_Navigation:
+    m_Mode: 3
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 114013480202374278}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 114441717274264140}
+        m_MethodName: AttemptCollect
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!222 &222698852178374456
 CanvasRenderer:
   m_ObjectHideFlags: 1
@@ -150,7 +208,7 @@ RectTransform:
   m_GameObject: {fileID: 1139472324857772}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.9999746, y: 0.9999746, z: 0.9999746}
   m_Children:
   - {fileID: 224345691562823644}
   m_Father: {fileID: 0}
@@ -158,7 +216,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -448, y: -900}
+  m_AnchoredPosition: {x: -448, y: 0}
   m_SizeDelta: {x: 360, y: 440}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224345691562823644
