@@ -656,6 +656,7 @@ MonoBehaviour:
   wordsAsset: {fileID: 4900000, guid: 190ccf22c3e148b41abc3f9f33c595d2, type: 3}
   correctSound: {fileID: 8300000, guid: 61e3733e8ec583548ac7f65f9d4025ea, type: 3}
   incorrectSound: {fileID: 8300000, guid: 09b0667dbc0b5674284479811d61fa38, type: 3}
+  endGameSound: {fileID: 8300000, guid: a9ed59aaade278f4cbd4c186d6d665b1, type: 3}
   audioPlayer: {fileID: 708408163}
   FinalWord: 10
 --- !u!4 &1184515439
