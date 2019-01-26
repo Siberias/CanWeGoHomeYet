@@ -71,6 +71,7 @@ public class UIGroceryItem : MonoBehaviour
 		MakeNotPressable();
 
 		GroceryGameController.Instance.ResolveChoice(!wasCollected);
+		GroceryGameController.Instance.PlayChoiceSound(wasCollected);
 	}
 
 	public void MakePressable()

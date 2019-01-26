@@ -53,6 +53,11 @@ public class GameManager : MonoBehaviour
 
 		StartCoroutine(FadeIn());
 
+		if (ResetGame.HasResetTimer == false)
+		{
+			ResetGame.ResetTimer();
+		}
+
 		//set up clock variables
 		totalMinutes = 9 * 60;
 		minuteTimer = PlayerPrefs.GetInt("Timer", 0);
