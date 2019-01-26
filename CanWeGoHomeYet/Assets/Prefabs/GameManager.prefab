@@ -148,7 +148,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1955813138744208
 GameObject:
   m_ObjectHideFlags: 1
@@ -297,7 +297,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -435,8 +435,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f08fbec59c090e54f8d527dfb2df5226, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nextScene: Walking
+  nextScene: GroceryShopping
   endGameSound: {fileID: 8300000, guid: 97a04a2240301e64f923cf56cfd88e0f, type: 3}
+  m_clockZoomScaleFactor: 1
   clockPanel1: {fileID: 1640114105300560}
   clockPanel2: {fileID: 1632812968214086}
   clock: {fileID: 114440185918591948}
