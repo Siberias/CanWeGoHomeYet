@@ -15,6 +15,12 @@ public class UniScript : MonoBehaviour {
     private TextAsset wordsAsset;
     private string[] possibleColours = new string[4] { "red", "blue", "green", "yellow" };
     private KeyCode[] keyInputs = new KeyCode[4] { KeyCode.LeftArrow, KeyCode.UpArrow, KeyCode.DownArrow, KeyCode.RightArrow };
+    [SerializeField]
+    private AudioClip correctSound;
+    [SerializeField]
+    private AudioClip incorrectSound;
+    [SerializeField]
+    private AudioSource audioPlayer;
 
     //tracking variables
     private int wordCounter = 1;
@@ -46,7 +52,10 @@ public class UniScript : MonoBehaviour {
 
             if (letterCounter >= words[currentWordIndex].Length) {
                 wordCounter++;
-                SetNextWord();
+                StartCoroutine(WaitNextWord());
+
+                audioPlayer.clip = correctSound;
+                audioPlayer.Play();
             }
 
         } else if (Input.anyKeyDown) {
@@ -54,6 +63,9 @@ public class UniScript : MonoBehaviour {
             //reset laptop text and counter
             laptopText.text = "";
             letterCounter = 1;
+
+            audioPlayer.clip = incorrectSound;
+            audioPlayer.Play();
         }
     }
 
@@ -90,5 +102,13 @@ public class UniScript : MonoBehaviour {
             return true;
         }
         return false;
+    }
+
+    //wait before moving to next word
+    IEnumerator WaitNextWord() {
+
+        yield return new WaitForSeconds(0.1f);
+
+        SetNextWord();
     }
 }
