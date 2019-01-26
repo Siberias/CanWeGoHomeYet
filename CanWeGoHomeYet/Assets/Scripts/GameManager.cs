@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
 
 	public string nextScene;
 	public AudioClip endGameSound;
+	public float m_clockZoomScaleFactor = 1.0f;
 
 	//clock variables
 	[SerializeField]
@@ -163,8 +164,11 @@ public class GameManager : MonoBehaviour
 		m_audioPlayer.clip = endGameSound;
 		m_audioPlayer.Play();
 
+		//Stop the clock
+		m_isClockStarted = false;
+
 		//set the clock to be large and in the centre of the screen
-		Vector3 endPos = clock.transform.parent.transform.parent.TransformPoint(new Vector3(0, Screen.height / 4, 0));
+		Vector3 endPos = clock.transform.parent.transform.parent.TransformPoint(new Vector3(0, Screen.height / (4.0f * m_clockZoomScaleFactor), 0));
 
 		//make clock background invisible
 		clockPanel1.SetActive(false);
