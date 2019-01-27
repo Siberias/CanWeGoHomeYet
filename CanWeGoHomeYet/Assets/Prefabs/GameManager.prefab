@@ -435,9 +435,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f08fbec59c090e54f8d527dfb2df5226, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nextScene: GroceryShopping
+  cursorOn: 1
+  nextScene: WalkingHome
   endGameSound: {fileID: 8300000, guid: 97a04a2240301e64f923cf56cfd88e0f, type: 3}
-  m_clockZoomScaleFactor: 1
+  m_clockZoomScaleFactor: 2.4
   clockPanel1: {fileID: 1640114105300560}
   clockPanel2: {fileID: 1632812968214086}
   clock: {fileID: 114440185918591948}
@@ -614,7 +615,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224510353792087812
 RectTransform:
@@ -631,8 +632,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -18.603394, y: -100.6239}
-  m_SizeDelta: {x: -37.206726, y: 201.24783}
+  m_AnchoredPosition: {x: 7.2850056, y: -86.29}
+  m_SizeDelta: {x: 70.069984, y: 225.81999}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224633622084899484
 RectTransform:

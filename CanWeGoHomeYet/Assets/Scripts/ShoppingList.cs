@@ -107,4 +107,18 @@ public class ShoppingList : MonoBehaviour
 	{
 		m_showTimer = m_timeBeforeHide;
 	}
+
+	public GroceryItem GetUncollectedGroceryItem()
+	{
+		int choice = Random.Range(0, m_collectedItems.Count);
+		GroceryItem shoppingListItem = m_items[choice].GroceryItem;
+
+		while (m_collectedItems[shoppingListItem.m_id] == true)
+		{
+			choice = Random.Range(0, m_collectedItems.Count);
+			shoppingListItem = m_items[choice].GroceryItem;
+		}
+
+		return shoppingListItem;
+	}
 }

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 0.48
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.204139, g: 0.45228994, b: 0.7173989, a: 0.48}
+  m_IndirectSpecularColor: {r: 0.20415106, g: 0.45229346, b: 0.71739864, a: 0.48}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -4172,6 +4172,11 @@ Prefab:
         type: 2}
       propertyPath: m_LocalPosition.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114941079627870920, guid: 3c4e701f64dc33f4abf4f26046ae6b71,
+        type: 2}
+      propertyPath: m_clockZoomScaleFactor
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3c4e701f64dc33f4abf4f26046ae6b71, type: 2}
