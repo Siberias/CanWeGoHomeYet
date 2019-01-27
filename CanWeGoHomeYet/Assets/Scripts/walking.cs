@@ -55,7 +55,7 @@ public class walking : MonoBehaviour {
         //Check walking is true
         if (isWalking == true) {
             //Move Forward
-            player.transform.Translate(new Vector3(0, 0, 6) * Time.deltaTime);
+            player.transform.Translate(new Vector3(0, 0, 16) * Time.deltaTime);
 
             //if talking to person
         } else if (inInteraction == true) {
@@ -87,7 +87,7 @@ public class walking : MonoBehaviour {
         } else if (other.tag == "Bush" || other.tag == "Fence") {
 
             
-        } else if(other.tag == "School") {
+        } else if(other.tag == "School" || other.tag == "Home") {
             //end game here
             print("end game");
             isWalking = false;
