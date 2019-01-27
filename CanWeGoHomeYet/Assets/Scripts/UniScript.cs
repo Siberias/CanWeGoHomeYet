@@ -13,7 +13,7 @@ public class UniScript : MonoBehaviour
 	private List<string> words = new List<string>();
 	[SerializeField]
 	private TextAsset wordsAsset;
-	private string[] possibleColours = new string[4] { "red", "blue", "green", "yellow" };
+	private string[] possibleColours = new string[4] { "red", "blue", "lime", "yellow" };
 	private KeyCode[] keyInputs = new KeyCode[4] { KeyCode.LeftArrow, KeyCode.UpArrow, KeyCode.DownArrow, KeyCode.RightArrow };
 	[SerializeField]
 	private AudioClip correctSound;
