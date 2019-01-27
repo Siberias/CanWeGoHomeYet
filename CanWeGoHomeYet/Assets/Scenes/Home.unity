@@ -2942,6 +2942,7 @@ GameObject:
   - component: {fileID: 251069785}
   - component: {fileID: 251069784}
   - component: {fileID: 251069783}
+  - component: {fileID: 251069786}
   m_Layer: 0
   m_Name: GroceryList
   m_TagString: Important
@@ -3015,6 +3016,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 251069781}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &251069786
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 251069781}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 910c3ff1cd5f1ee46a16c362fe40ea5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  associatedSprite: {fileID: 21300000, guid: 1b28f42d2076f32409a2be35b0d3cbfe, type: 3}
 --- !u!1 &254352951
 GameObject:
   m_ObjectHideFlags: 0
@@ -3597,7 +3610,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &315744593
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8984,6 +8997,7 @@ MonoBehaviour:
   noteAudio: {fileID: 68877234}
   importantObjects: []
   thoughtBubbleSprite: {fileID: 315744594}
+  nextScene: walking
 --- !u!1 &1033666833
 GameObject:
   m_ObjectHideFlags: 0
