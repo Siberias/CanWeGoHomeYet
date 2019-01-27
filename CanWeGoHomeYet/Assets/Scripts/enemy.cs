@@ -6,13 +6,13 @@ public class enemy : MonoBehaviour {
 
     public GameObject[] characters;
     public Vector3 spawnPos;
-    private int numEnemies;
+    //private int numEnemies;
     public int enemyDis;
 
 	// Use this for initialization
 	void Start () {
-        numEnemies = 10;
-        enemyDis = 160 / numEnemies;
+        //numEnemies = 10;
+        enemyDis = 160 / characters.Length;
         SetEnemies();
 	}
 	
@@ -23,7 +23,7 @@ public class enemy : MonoBehaviour {
 
     void SetEnemies() {
         int addZ = 10;
-        for (int i = 0; i < numEnemies; i++) {
+        for (int i = 0; i < characters.Length; i++) {
             int ranX = (Random.Range(-1, 2) * 3);
             addZ += enemyDis;
             Instantiate(characters[Random.Range(0, characters.Length)], new Vector3(ranX, 1, addZ), Quaternion.identity);
