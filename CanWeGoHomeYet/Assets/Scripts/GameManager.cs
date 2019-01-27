@@ -8,6 +8,9 @@ public class GameManager : MonoBehaviour
 	public delegate void OnGameStartDelegate();
 	public static event OnGameStartDelegate OnGameStart;
 
+    //whether cursor is on or not
+    public bool cursorOn = false;
+
 	public string nextScene;
 	public AudioClip endGameSound;
 	public float m_clockZoomScaleFactor = 1.0f;
@@ -61,6 +64,12 @@ public class GameManager : MonoBehaviour
 		//set up clock variables
 		totalMinutes = PlayerPrefs.GetInt("Timer", 9 * 60); //Start at 9:00 if the timer hasn't been set yet
 		minuteTimer = 0;
+
+        if (cursorOn) {
+            Cursor.visible = true;
+        } else {
+            Cursor.visible = false;
+        }
 	}
 
 	// Update is called once per frame

@@ -11,6 +11,7 @@ public class House : MonoBehaviour {
     private bool[] objectsTriggered;
     public Image thoughtBubbleSprite;
     public string nextScene = "walking";
+    public CanvasGroup fader;
 
 	// Use this for initialization
 	void Start () {
@@ -20,6 +21,8 @@ public class House : MonoBehaviour {
         for (int i = 0; i < objectsTriggered.Length; i++) {
             objectsTriggered[i] = false;
         }
+
+        fader.alpha = 0;
 	}
 	
 	// Update is called once per frame
@@ -56,7 +59,7 @@ public class House : MonoBehaviour {
                 }
 
                 if (allObjectsFound) {
-                    EndGame();
+                    StartCoroutine(EndGame());
                 }
             }
 
@@ -91,10 +94,18 @@ public class House : MonoBehaviour {
 
         yield return new WaitForEndOfFrame();
 
-        highlightedObject.GetComponent<Renderer>().material.SetColor("_Color", Color.white);
+        highlightedObject.GetComponent<Renderer>().material.SetColor("_Color", Color.gray);
     }
 
-    private void EndGame() {
+    IEnumerator EndGame() {
+
+        for (float i = 0; i < 1; i += (1f/100f)) {
+
+            fader.alpha = i;
+
+            yield return new WaitForEndOfFrame();
+        }
+
         SceneManager.LoadScene(nextScene);
     }
 }

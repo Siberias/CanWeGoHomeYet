@@ -779,12 +779,17 @@ Prefab:
     - target: {fileID: 114941079627870920, guid: 3c4e701f64dc33f4abf4f26046ae6b71,
         type: 2}
       propertyPath: nextScene
-      value: Walking
+      value: WalkingHome
       objectReference: {fileID: 0}
     - target: {fileID: 114941079627870920, guid: 3c4e701f64dc33f4abf4f26046ae6b71,
         type: 2}
       propertyPath: m_clockZoomScaleFactor
       value: 2.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114941079627870920, guid: 3c4e701f64dc33f4abf4f26046ae6b71,
+        type: 2}
+      propertyPath: cursorOn
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3c4e701f64dc33f4abf4f26046ae6b71, type: 2}
