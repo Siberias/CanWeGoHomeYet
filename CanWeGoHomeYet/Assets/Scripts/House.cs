@@ -12,6 +12,7 @@ public class House : MonoBehaviour {
     public Image thoughtBubbleSprite;
     public string nextScene = "walking";
     public CanvasGroup fader;
+    public Image[] thoughtBubble;
 
 	// Use this for initialization
 	void Start () {
@@ -23,6 +24,12 @@ public class House : MonoBehaviour {
         }
 
         fader.alpha = 0;
+
+        thoughtBubbleSprite.enabled = false;
+
+        for (int i = 0; i < thoughtBubble.Length; i++) {
+            thoughtBubble[i].enabled = false;
+        }
 	}
 	
 	// Update is called once per frame
@@ -52,7 +59,7 @@ public class House : MonoBehaviour {
                     if (!objectsTriggered[i]) {
                         allObjectsFound = false;
 
-                        RunSpeechBubble(i);
+                        StartCoroutine(RunSpeechBubble(i));
 
                         i = objectsTriggered.Length;
                     }
@@ -74,19 +81,25 @@ public class House : MonoBehaviour {
         }
 	}
 
-    private void RunSpeechBubble(int objectIndex) {
+    //runs the speech bubble
+    IEnumerator RunSpeechBubble(int objectIndex) {
+
+        for (int i = 0; i < thoughtBubble.Length; i++) {
+            thoughtBubble[i].enabled = true;
+
+            yield return new WaitForSeconds(0.2f);
+        }
+
         thoughtBubbleSprite.sprite = importantObjects[objectIndex].GetComponent<ImportantHouseObjects>().associatedSprite;
-        thoughtBubbleSprite.gameObject.SetActive(true);
-
-        StartCoroutine(HideSprite());
-    }
-
-    //hides the sprite after a few seconds
-    IEnumerator HideSprite() {
+        thoughtBubbleSprite.enabled = true;
 
         yield return new WaitForSeconds(2f);
 
-        thoughtBubbleSprite.gameObject.SetActive(false);
+        thoughtBubbleSprite.enabled = false;
+
+        for (int i = 0; i < thoughtBubble.Length; i++) {
+            thoughtBubble[i].enabled = false;
+        }
     }
 
     //resets highlighted object's colour

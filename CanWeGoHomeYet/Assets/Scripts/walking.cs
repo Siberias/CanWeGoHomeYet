@@ -110,6 +110,10 @@ public class walking : MonoBehaviour
 			print("end game");
 			isWalking = false;
 
+            if(other.tag == "Home") {
+                GameObject.Find("Door_Hinge").GetComponent<Animator>().Play("doorOpen");
+            }
+
 			StartCoroutine(GameManager.Instance.FadeOut());
 		}
 	}
