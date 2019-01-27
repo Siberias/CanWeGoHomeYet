@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
 
 public class walking : MonoBehaviour
 {
@@ -46,21 +47,6 @@ public class walking : MonoBehaviour
 		{
 			return;
 		}
-
-		//if talking to person
-		if (inInteraction == true)
-		{
-			if (Input.anyKey)
-			{
-				//close conversation and go back to walking
-				TurnOffCanvas();
-				isWalking = true;
-				inInteraction = false;
-			}
-
-			return;
-		}
-
 		//if press a move left
 		if (lane != 0 && (Input.GetKeyDown("a") || Input.GetKeyDown(KeyCode.LeftArrow)))
 		{
@@ -72,13 +58,23 @@ public class walking : MonoBehaviour
 			MoveRight();
 		}
 
-		//Check walking is true
-		if (isWalking == true)
-		{
-			//Move Forward
-			player.transform.Translate(new Vector3(0, 0, 16) * Time.deltaTime);
+        //Check walking is true
+        if (isWalking == true) {
+            //Move Forward
+            player.transform.Translate(new Vector3(0, 0, 16) * Time.deltaTime);
+
+            //if talking to person
+        } else if (inInteraction == true) {
+            StartCoroutine(ListenToPerson());
+            //TurnOffCanvas();
+        
 		}
 	}
+
+    IEnumerator ListenToPerson() {
+        yield return new WaitForSeconds(10);
+        TurnOffCanvas();
+    }
 
 	void MoveRight()
 	{
@@ -159,4 +155,6 @@ public class walking : MonoBehaviour
 		flyer.gameObject.SetActive(false);
 		speechBubble.gameObject.SetActive(false);
 	}
+
+    
 }
