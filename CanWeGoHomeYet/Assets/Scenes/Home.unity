@@ -9077,7 +9077,7 @@ MonoBehaviour:
   noteAudio: {fileID: 68877234}
   importantObjects: []
   thoughtBubbleSprite: {fileID: 315744594}
-  nextScene: walking
+  nextScene: Walking
   fader: {fileID: 851935804}
 --- !u!1 &1033666833
 GameObject:
