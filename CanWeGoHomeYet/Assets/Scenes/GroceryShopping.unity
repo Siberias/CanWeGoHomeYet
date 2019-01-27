@@ -724,6 +724,14 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 3c501697d9cc23840ad1c0220f4ae4f5, type: 2}
   - {fileID: 11400000, guid: 777fe8f2242bf0d4781bd3aac85aeafb, type: 2}
   - {fileID: 11400000, guid: 8474970206f14eb4cb8406a58adeb436, type: 2}
+  - {fileID: 11400000, guid: e4677afe8fa37c4409691d03133aee09, type: 2}
+  - {fileID: 11400000, guid: 4bc415b3c73a4f647a42307043f4a12d, type: 2}
+  - {fileID: 11400000, guid: 77ff68a4c6fb64b49afd80b95556b9af, type: 2}
+  - {fileID: 11400000, guid: 5430f0587a5440545ac4c5875e2d37a5, type: 2}
+  - {fileID: 11400000, guid: dd2f782626e5be6499939303f669b398, type: 2}
+  - {fileID: 11400000, guid: af2492fec17b6e04f92cbe9a7a5edd19, type: 2}
+  - {fileID: 11400000, guid: 4a30db91d22a17940b90feeebe2f97b8, type: 2}
+  - {fileID: 11400000, guid: 09c1db287397a064eb3f60946d15d310, type: 2}
 --- !u!4 &1141478558
 Transform:
   m_ObjectHideFlags: 0
@@ -778,18 +786,13 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 114941079627870920, guid: 3c4e701f64dc33f4abf4f26046ae6b71,
         type: 2}
-      propertyPath: nextScene
-      value: WalkingHome
-      objectReference: {fileID: 0}
-    - target: {fileID: 114941079627870920, guid: 3c4e701f64dc33f4abf4f26046ae6b71,
-        type: 2}
       propertyPath: m_clockZoomScaleFactor
       value: 2.4
       objectReference: {fileID: 0}
     - target: {fileID: 114941079627870920, guid: 3c4e701f64dc33f4abf4f26046ae6b71,
         type: 2}
-      propertyPath: cursorOn
-      value: 1
+      propertyPath: nextScene
+      value: WalkingHome
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3c4e701f64dc33f4abf4f26046ae6b71, type: 2}
@@ -1547,6 +1550,7 @@ GameObject:
   - component: {fileID: 1852839094}
   - component: {fileID: 1852839096}
   - component: {fileID: 1852839095}
+  - component: {fileID: 1852839097}
   m_Layer: 5
   m_Name: YouWin
   m_TagString: Untagged
@@ -1584,7 +1588,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -1593,7 +1597,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 300
+    m_FontSize: 223
     m_FontStyle: 1
     m_BestFit: 0
     m_MinSize: 10
@@ -1604,13 +1608,29 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: You did it!
+  m_Text: 'You got them all!
+
+    Let''s go home!'
 --- !u!222 &1852839096
 CanvasRenderer:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1852839093}
+--- !u!114 &1852839097
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1852839093}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -900027084, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.788}
+  m_EffectDistance: {x: 4, y: -5}
+  m_UseGraphicAlpha: 1
 --- !u!1 &1985499966
 GameObject:
   m_ObjectHideFlags: 0

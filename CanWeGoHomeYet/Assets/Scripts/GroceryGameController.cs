@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class GroceryGameController : MonoBehaviour
 {
@@ -19,7 +18,6 @@ public class GroceryGameController : MonoBehaviour
 	public AudioClip m_incorrectSound;
 
 	private int m_numChoicesLeft;
-	private List<UIShoppingListItem> m_shoppingListCopy;
 
 	private float m_choiceTimer = 0.0f;
 	private float m_hideTimer = 0.0f;
@@ -73,9 +71,6 @@ public class GroceryGameController : MonoBehaviour
 
 	public void StartGame()
 	{
-		m_shoppingListCopy = new List<UIShoppingListItem>(ShoppingList.Instance.m_items);
-		m_shoppingListCopy.Shuffle();
-
 		StartNewRound();
 	}
 
@@ -96,7 +91,7 @@ public class GroceryGameController : MonoBehaviour
 		--m_numChoicesLeft;
 
 		//Choose 1 required item and one random item
-		GroceryItem item1 = m_shoppingListCopy[m_numChoicesLeft].GroceryItem;
+		GroceryItem item1 = ShoppingList.Instance.GetUncollectedGroceryItem();
 		int secondChoice = Random.Range(0, GroceryItemList.Instance.m_items.Count);
 		GroceryItem item2 = GroceryItemList.Instance.m_items[secondChoice];
 
