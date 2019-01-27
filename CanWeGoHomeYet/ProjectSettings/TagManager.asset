@@ -7,6 +7,11 @@ TagManager:
   - Enemy
   - Bush
   - School
+  - Fence
+  - Flyer
+  - Grandma
+  - Mum
+  - Sister
   layers:
   - Default
   - TransparentFX
