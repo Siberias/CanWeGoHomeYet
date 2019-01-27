@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(AudioSource))]
 public class GroceryGameController : MonoBehaviour
 {
 	public float m_timeToChoose = 5.0f;
@@ -10,13 +9,21 @@ public class GroceryGameController : MonoBehaviour
 	public UIGroceryItem m_leftItem;
 	public UIGroceryItem m_rightItem;
 
+	public AudioSource m_ambientSoundPlayer;
+	public AudioSource m_choiceSoundPlayer;
+
 	public GameObject m_youWinFeedback;
+
+	public AudioClip m_ambientSound;
+	public AudioClip m_correctSound;
+	public AudioClip m_incorrectSound;
 
 	private int m_numChoicesLeft;
 	private List<UIShoppingListItem> m_shoppingListCopy;
 
 	private float m_choiceTimer = 0.0f;
 	private float m_hideTimer = 0.0f;
+
 
 	public static GroceryGameController Instance { get; private set; }
 
@@ -25,6 +32,12 @@ public class GroceryGameController : MonoBehaviour
 		Instance = this;
 
 		GameManager.OnGameStart += CountdownToGameStart;
+	}
+
+	private void Start()
+	{
+		m_ambientSoundPlayer.clip = m_ambientSound;
+		m_ambientSoundPlayer.Play();
 	}
 
 	private void Update()
@@ -123,6 +136,20 @@ public class GroceryGameController : MonoBehaviour
 
 			m_hideTimer = m_timeToHide;
 		}
+	}
+
+	public void PlayChoiceSound(bool madeCorrectChoice)
+	{
+		if (madeCorrectChoice)
+		{
+			m_choiceSoundPlayer.clip = m_correctSound;
+		}
+		else
+		{
+			m_choiceSoundPlayer.clip = m_incorrectSound;
+		}
+
+		m_choiceSoundPlayer.Play();
 	}
 
 	public void ShakeCompleted()
