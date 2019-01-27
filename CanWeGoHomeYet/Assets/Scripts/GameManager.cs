@@ -59,8 +59,8 @@ public class GameManager : MonoBehaviour
 		}
 
 		//set up clock variables
-		totalMinutes = 9 * 60;
-		minuteTimer = PlayerPrefs.GetInt("Timer", 0);
+		totalMinutes = PlayerPrefs.GetInt("Timer", 9 * 60); //Start at 9:00 if the timer hasn't been set yet
+		minuteTimer = 0;
 	}
 
 	// Update is called once per frame
