@@ -1,129 +1,158 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class walking : MonoBehaviour {
+public class walking : MonoBehaviour
+{
 
-    public GameObject player;
-    //public GameObject canvas;
-    private int lane;
-    public bool isWalking;
-    public Text speaking;
+	public GameObject player;
+	//public GameObject canvas;
+	private int lane;
+	public bool isWalking;
+	public Text speaking;
 
-    //Get canvas images
-    public Image flyer, grandma, mum, sister, speechBubble;
+	//Get canvas images
+	public Image flyer, grandma, mum, sister, speechBubble;
 
-    private bool inInteraction = false;
-    private bool isCounting;
+	private bool inInteraction = false;
+	private bool isCounting;
 
-    private void Awake() {
-        GameManager.OnGameStart += GameStart;
-        isCounting = true;
-    }
-
-    // Use this for initialization
-    
+	private void Awake()
+	{
+		GameManager.OnGameStart += GameStart;
+		isCounting = true;
+	}
 
 	// Use this for initialization
-	void GameStart () {
-        GameManager.OnGameStart -= GameStart;
 
-        //Set lane to 1 (middle)
-        lane = 1;
 
-        isWalking = true;
-        isCounting = false;
-        
+	// Use this for initialization
+	void GameStart()
+	{
+		GameManager.OnGameStart -= GameStart;
+
+		//Set lane to 1 (middle)
+		lane = 1;
+
+		isWalking = true;
+		isCounting = false;
+
 
 	}
-	
+
 	// Update is called once per frame
-	void Update () {
-        if(isCounting == true) {
-            return;
-        }
-        //if press a move left
-        if (lane != 0 && (Input.GetKeyDown("a") || Input.GetKeyDown(KeyCode.LeftArrow))) {
-            MoveLeft();
-        }
-        //if press d move right
-        if (lane != 2 && (Input.GetKeyDown("d") || Input.GetKeyDown(KeyCode.RightArrow))) {
-            MoveRight();
-        }
+	void Update()
+	{
+		if (isCounting == true)
+		{
+			return;
+		}
+		//if press a move left
+		if (lane != 0 && (Input.GetKeyDown("a") || Input.GetKeyDown(KeyCode.LeftArrow)))
+		{
+			MoveLeft();
+		}
+		//if press d move right
+		if (lane != 2 && (Input.GetKeyDown("d") || Input.GetKeyDown(KeyCode.RightArrow)))
+		{
+			MoveRight();
+		}
 
-        //Check walking is true
-        if (isWalking == true) {
-            //Move Forward
-            player.transform.Translate(new Vector3(0, 0, 6) * Time.deltaTime);
+		//Check walking is true
+		if (isWalking == true)
+		{
+			//Move Forward
+			player.transform.Translate(new Vector3(0, 0, 16) * Time.deltaTime);
 
-            //if talking to person
-        } else if (inInteraction == true) {
-            if (Input.anyKey) {
-                //close conversation and go back to walking
-                TurnOffCanvas();
-                isWalking = true;
-            }
-        }
-    }
+			//if talking to person
+		}
+		else if (inInteraction == true)
+		{
+			if (Input.anyKey)
+			{
+				//close conversation and go back to walking
+				TurnOffCanvas();
+				isWalking = true;
+			}
+		}
+	}
 
-    void MoveRight() {
-        player.transform.Translate(new Vector3(3, 0, 0));
-        lane++;
-    }
+	void MoveRight()
+	{
+		isWalking = true;
+		player.transform.Translate(new Vector3(3, 0, 0));
+		lane++;
+	}
 
-    void MoveLeft() {
-        player.transform.Translate(new Vector3(-3, 0, 0));
-        lane--;
-    }
+	void MoveLeft()
+	{
+		isWalking = true;
+		player.transform.Translate(new Vector3(-3, 0, 0));
+		lane--;
+	}
 
-    //walk into enemy
-    private void OnTriggerEnter(Collider other) {
-        isWalking = false;
-        if (other.tag == "Enemy" || other.tag == "Grandma" || other.tag == "Mum" || other.tag == "Flyer" || other.tag == "Sister") {
-            Destroy(other.gameObject);
-            Interaction(other.tag);
+	//walk into enemy
+	private void OnTriggerEnter(Collider other)
+	{
+		isWalking = false;
+		if (other.tag == "Enemy" || other.tag == "Grandma" || other.tag == "Mum" || other.tag == "Flyer" || other.tag == "Sister")
+		{
+			Destroy(other.gameObject);
+			Interaction(other.tag);
 
-        } else if (other.tag == "Bush" || other.tag == "Fence") {
+		}
+		else if (other.tag == "Bush" || other.tag == "Fence")
+		{
 
-            
-        } else if(other.tag == "School") {
-            //end game here
-            print("end game");
-            isWalking = false;
 
-            StartCoroutine(GameManager.Instance.FadeOut());
-        }
-    }
+		}
+		else if (other.tag == "School" || other.tag == "Home")
+		{
+			//end game here
+			print("end game");
+			isWalking = false;
 
-    void Interaction(string person) {
-        if(person == "Grandma") {
-            grandma.gameObject.SetActive(true);
-        } else if (person == "Mum") {
-            mum.gameObject.SetActive(true);
-        }else if (person == "Sister") {
-            sister.gameObject.SetActive(true);
-        }else if (person == "Flyer") {
-            flyer.gameObject.SetActive(true);
-        }
-        speechBubble.gameObject.SetActive(true);
-        inInteraction = true;
-        string saying = "";
+			StartCoroutine(GameManager.Instance.FadeOut());
+		}
+	}
 
-        //randomise what person is saying
-        string st = "bcMdJI ZGHBoq rAhijk FDltux ";
-        for (int i = 0; i < 10; i++) {
-            char c = st[Random.Range(0, st.Length)];
-            saying = saying.Insert(0, c.ToString());
-        }
-        speaking.text = saying;
-    }
+	void Interaction(string person)
+	{
+		if (person == "Grandma")
+		{
+			grandma.gameObject.SetActive(true);
+		}
+		else if (person == "Mum")
+		{
+			mum.gameObject.SetActive(true);
+		}
+		else if (person == "Sister")
+		{
+			sister.gameObject.SetActive(true);
+		}
+		else if (person == "Flyer")
+		{
+			flyer.gameObject.SetActive(true);
+		}
+		speechBubble.gameObject.SetActive(true);
+		inInteraction = true;
+		string saying = "";
 
-    void TurnOffCanvas() {
-        grandma.gameObject.SetActive(false);
-        mum.gameObject.SetActive(false);
-        sister.gameObject.SetActive(false);
-        flyer.gameObject.SetActive(false);
-        speechBubble.gameObject.SetActive(false);
-    }
+		//randomise what person is saying
+		string st = "bcMdJI ZGHBoq rAhijk FDltux ";
+		for (int i = 0; i < 10; i++)
+		{
+			char c = st[Random.Range(0, st.Length)];
+			saying = saying.Insert(0, c.ToString());
+		}
+		speaking.text = saying;
+	}
+
+	void TurnOffCanvas()
+	{
+		grandma.gameObject.SetActive(false);
+		mum.gameObject.SetActive(false);
+		sister.gameObject.SetActive(false);
+		flyer.gameObject.SetActive(false);
+		speechBubble.gameObject.SetActive(false);
+	}
 }
