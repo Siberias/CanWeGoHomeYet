@@ -12,7 +12,7 @@ public class walking : MonoBehaviour
 	public Text speaking;
 
 	//Get canvas images
-	public Image flyer, grandma, mum, sister, speechBubble;
+	public Image flyer, grandma, mum, sister, speechBubble, controls;
 
 	private bool inInteraction = false;
 	private bool isCounting;
@@ -36,7 +36,7 @@ public class walking : MonoBehaviour
 
 		isWalking = true;
 		isCounting = false;
-
+        TurnOffCanvas();
 
 	}
 
@@ -159,6 +159,7 @@ public class walking : MonoBehaviour
 		sister.gameObject.SetActive(false);
 		flyer.gameObject.SetActive(false);
 		speechBubble.gameObject.SetActive(false);
+        controls.gameObject.SetActive(false);
 	}
 
 
