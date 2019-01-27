@@ -23,3 +23,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/WalkingHome.unity
     guid: 0a932bbf67cd9a0479a25f3ec0a83415
+  - enabled: 1
+    path: Assets/Scenes/Leaderboard.unity
+    guid: 1fe085467bcef9a41889739c1829dd26
