@@ -71,7 +71,7 @@ public class GameManager : MonoBehaviour
 			totalMinutes++;
 			minuteTimer = Time.time + minuteTime;
 
-			clock.text = ConvertMinutes();
+			clock.text = ConvertMinutesInternal();
 		}
 	}
 
@@ -82,9 +82,13 @@ public class GameManager : MonoBehaviour
 	}
 
 	//convert minutes to digital time as string
-	private string ConvertMinutes()
+	private string ConvertMinutesInternal()
 	{
+		return ConvertMinutes(totalMinutes);
+	}
 
+	public static string ConvertMinutes(int totalMinutes)
+	{
 		//calculate time in hours and minutes
 		int hours = totalMinutes / 60;
 		int minutes = totalMinutes % 60;
