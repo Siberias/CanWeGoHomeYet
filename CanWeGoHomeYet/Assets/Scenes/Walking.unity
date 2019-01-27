@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 0.48
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.20415106, g: 0.45229346, b: 0.71739864, a: 0.48}
+  m_IndirectSpecularColor: {r: 0.20404553, g: 0.45226204, b: 0.7174014, a: 0.48}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -4299,6 +4299,7 @@ Prefab:
         type: 2}
       propertyPath: m_Volume
       value: 0.655
+      objectReference: {fileID: 0}
     - target: {fileID: 114941079627870920, guid: 3c4e701f64dc33f4abf4f26046ae6b71,
         type: 2}
       propertyPath: m_clockZoomScaleFactor
@@ -4622,7 +4623,8 @@ AudioSource:
   m_GameObject: {fileID: 2097430535}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 243327905835982328, guid: f5c18b3c0ba9b774084b746090b732ce,
+    type: 2}
   m_audioClip: {fileID: 8300000, guid: 7093115c839bb1d4c8e1a30b9f3d5b87, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
