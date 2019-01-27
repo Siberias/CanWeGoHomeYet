@@ -6,16 +6,20 @@ using UnityEngine.UI;
 public class walking : MonoBehaviour {
 
     public GameObject player;
-    public GameObject canvas;
+    //public GameObject canvas;
     private int lane;
     public bool isWalking;
     public Text speaking;
 
+    //Get canvas images
+    public Image flyer, grandma, mum, sister, speechBubble;
+
     private bool inInteraction = false;
+    private bool isCounting;
 
     private void Awake() {
         GameManager.OnGameStart += GameStart;
-
+        isCounting = true;
     }
 
     // Use this for initialization
@@ -29,15 +33,16 @@ public class walking : MonoBehaviour {
         lane = 1;
 
         isWalking = true;
-
-        //Hide Canvas
-        canvas.SetActive(false);
+        isCounting = false;
+        
 
 	}
 	
 	// Update is called once per frame
 	void Update () {
-
+        if(isCounting == true) {
+            return;
+        }
         //if press a move left
         if (lane != 0 && (Input.GetKeyDown("a") || Input.GetKeyDown(KeyCode.LeftArrow))) {
             MoveLeft();
@@ -56,7 +61,7 @@ public class walking : MonoBehaviour {
         } else if (inInteraction == true) {
             if (Input.anyKey) {
                 //close conversation and go back to walking
-                canvas.SetActive(false);
+                TurnOffCanvas();
                 isWalking = true;
             }
         }
@@ -75,21 +80,13 @@ public class walking : MonoBehaviour {
     //walk into enemy
     private void OnTriggerEnter(Collider other) {
         isWalking = false;
-        if (other.tag == "Enemy") {
+        if (other.tag == "Enemy" || other.tag == "Grandma" || other.tag == "Mum" || other.tag == "Flyer" || other.tag == "Sister") {
             Destroy(other.gameObject);
-            Interaction();
+            Interaction(other.tag);
 
-        } else if (other.tag == "Bush") {
-            ////press button to walk around the fence
-            ////if press a move left
-            //if (lane != 0 && (Input.GetKeyDown("a") || Input.GetKeyDown(KeyCode.LeftArrow))) {
-            //    MoveLeft();
-            //}
-            ////if press d move right
-            //if (lane != 2 && (Input.GetKeyDown("d") || Input.GetKeyDown(KeyCode.RightArrow))) {
-            //    MoveRight();
-            //}
-            print("bush");
+        } else if (other.tag == "Bush" || other.tag == "Fence") {
+
+            
         } else if(other.tag == "School") {
             //end game here
             print("end game");
@@ -99,8 +96,17 @@ public class walking : MonoBehaviour {
         }
     }
 
-    void Interaction() {
-        canvas.SetActive(true);
+    void Interaction(string person) {
+        if(person == "Grandma") {
+            grandma.gameObject.SetActive(true);
+        } else if (person == "Mum") {
+            mum.gameObject.SetActive(true);
+        }else if (person == "Sister") {
+            sister.gameObject.SetActive(true);
+        }else if (person == "Flyer") {
+            flyer.gameObject.SetActive(true);
+        }
+        speechBubble.gameObject.SetActive(true);
         inInteraction = true;
         string saying = "";
 
@@ -111,5 +117,13 @@ public class walking : MonoBehaviour {
             saying = saying.Insert(0, c.ToString());
         }
         speaking.text = saying;
+    }
+
+    void TurnOffCanvas() {
+        grandma.gameObject.SetActive(false);
+        mum.gameObject.SetActive(false);
+        sister.gameObject.SetActive(false);
+        flyer.gameObject.SetActive(false);
+        speechBubble.gameObject.SetActive(false);
     }
 }
