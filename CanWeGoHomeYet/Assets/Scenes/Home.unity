@@ -11273,23 +11273,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.009072234, y: 0.010978676, z: 0.0426661}
   m_Center: {x: 0.0003662928, y: 0.000000011442633, z: -0.00007169225}
---- !u!1 &1285027223 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1929947286110446, guid: 5a873eb64e1a1d64387face755e00547,
-    type: 2}
-  m_PrefabInternal: {fileID: 1645784822}
---- !u!65 &1285027224
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1285027223}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1.936956, y: 3.2696488, z: 1}
-  m_Center: {x: 4.0729613, y: 1.1348251, z: -1.0369648e-15}
 --- !u!1001 &1386217903
 Prefab:
   m_ObjectHideFlags: 0
@@ -14371,6 +14354,10 @@ Prefab:
       value: 1.2500012
       objectReference: {fileID: 0}
     - target: {fileID: 1929947286110446, guid: 5a873eb64e1a1d64387face755e00547, type: 2}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
+    - target: {fileID: 1485550200353118, guid: 5a873eb64e1a1d64387face755e00547, type: 2}
       propertyPath: m_TagString
       value: Finish
       objectReference: {fileID: 0}

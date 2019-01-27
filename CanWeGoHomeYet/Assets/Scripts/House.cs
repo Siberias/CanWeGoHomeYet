@@ -59,6 +59,15 @@ public class House : MonoBehaviour {
                     EndGame();
                 }
             }
+
+
+            //if the item is interactable, highlight it
+            if ((hit.transform.CompareTag("Important") && !objectsTriggered[System.Array.IndexOf(importantObjects, hit.transform.gameObject)]) || 
+                    hit.transform.CompareTag("Finish")) {
+
+                hit.transform.gameObject.GetComponent<Renderer>().material.SetColor("_Color", Color.yellow);
+                StartCoroutine(ResetHighlight(hit.transform.gameObject));
+            }
         }
 	}
 
@@ -75,6 +84,14 @@ public class House : MonoBehaviour {
         yield return new WaitForSeconds(2f);
 
         thoughtBubbleSprite.gameObject.SetActive(false);
+    }
+
+    //resets highlighted object's colour
+    IEnumerator ResetHighlight(GameObject highlightedObject) {
+
+        yield return new WaitForEndOfFrame();
+
+        highlightedObject.GetComponent<Renderer>().material.SetColor("_Color", Color.white);
     }
 
     private void EndGame() {
