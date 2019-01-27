@@ -1,6 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.UI;
-using System.Collections;
 
 public class walking : MonoBehaviour
 {
@@ -43,10 +43,11 @@ public class walking : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
-		if (isCounting == true)
+		if (isCounting == true || inInteraction == true)
 		{
 			return;
 		}
+
 		//if press a move left
 		if (lane != 0 && (Input.GetKeyDown("a") || Input.GetKeyDown(KeyCode.LeftArrow)))
 		{
@@ -58,23 +59,21 @@ public class walking : MonoBehaviour
 			MoveRight();
 		}
 
-        //Check walking is true
-        if (isWalking == true) {
-            //Move Forward
-            player.transform.Translate(new Vector3(0, 0, 16) * Time.deltaTime);
-
-            //if talking to person
-        } else if (inInteraction == true) {
-            StartCoroutine(ListenToPerson());
-            //TurnOffCanvas();
-        
+		//Check walking is true
+		if (isWalking == true)
+		{
+			//Move Forward
+			player.transform.Translate(new Vector3(0, 0, 16) * Time.deltaTime);
 		}
 	}
 
-    IEnumerator ListenToPerson() {
-        yield return new WaitForSeconds(10);
-        TurnOffCanvas();
-    }
+	IEnumerator ListenToPerson()
+	{
+		yield return new WaitForSeconds(3.0f);
+		TurnOffCanvas();
+		inInteraction = false;
+		isWalking = true;
+	}
 
 	void MoveRight()
 	{
@@ -145,6 +144,8 @@ public class walking : MonoBehaviour
 			saying = saying.Insert(0, c.ToString());
 		}
 		speaking.text = saying;
+
+		StartCoroutine(ListenToPerson());
 	}
 
 	void TurnOffCanvas()
@@ -156,5 +157,5 @@ public class walking : MonoBehaviour
 		speechBubble.gameObject.SetActive(false);
 	}
 
-    
+
 }
