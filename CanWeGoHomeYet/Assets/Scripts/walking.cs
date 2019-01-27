@@ -46,6 +46,21 @@ public class walking : MonoBehaviour
 		{
 			return;
 		}
+
+		//if talking to person
+		if (inInteraction == true)
+		{
+			if (Input.anyKey)
+			{
+				//close conversation and go back to walking
+				TurnOffCanvas();
+				isWalking = true;
+				inInteraction = false;
+			}
+
+			return;
+		}
+
 		//if press a move left
 		if (lane != 0 && (Input.GetKeyDown("a") || Input.GetKeyDown(KeyCode.LeftArrow)))
 		{
@@ -62,17 +77,6 @@ public class walking : MonoBehaviour
 		{
 			//Move Forward
 			player.transform.Translate(new Vector3(0, 0, 16) * Time.deltaTime);
-
-			//if talking to person
-		}
-		else if (inInteraction == true)
-		{
-			if (Input.anyKey)
-			{
-				//close conversation and go back to walking
-				TurnOffCanvas();
-				isWalking = true;
-			}
 		}
 	}
 
