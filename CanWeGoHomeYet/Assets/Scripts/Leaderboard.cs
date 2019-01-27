@@ -42,6 +42,13 @@ public class Leaderboard : MonoBehaviour
 		m_leaderboardUI.SetActive(false);
 	}
 
+	private void Start()
+	{
+		//Make sure we have the mouse again
+		Cursor.visible = true;
+		Cursor.lockState = CursorLockMode.None;
+	}
+
 	public void AddScore(string score)
 	{
 		m_pendingScore = score;
